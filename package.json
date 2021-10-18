@@ -1,0 +1,25 @@
+{
+  "dependencies": {
+    "@fontsource/poppins": "^4.5.0",
+    "@fontsource/roboto": "^4.5.1",
+    "next": "^11.1.2",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-hook-form": "^7.17.4",
+    "react-slick": "^0.28.1",
+    "react-transition-group": "^4.4.2",
+    "slick-carousel": "^1.8.1",
+    "yup": "^0.32.11"
+  },
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.3.7",
+    "postcss": "^8.3.9",
+    "tailwindcss": "^2.2.17"
+  }
+}

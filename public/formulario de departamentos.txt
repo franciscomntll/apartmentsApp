@@ -1,0 +1,61 @@
+departamentos:
+
+******Seccion general******
+
+Agencia: Combo box por ahora moquear
+Propietario: Combo box
+Categoria: Combo box
+Orientacion: Combo box
+Fecha de incorporacion: Datepicker
+
+******Seccion Direccion******
+Calle: textbox
+Numero: number
+Piso: number
+apartamento: Textbox
+torre: Textbox
+Entre calle 1: textbox
+Entre calle 2: textbox
+Ciudad: Textbox
+Codigo posstal: number
+
+******Seccion comunicacion******
+
+Telefono: Textbox
+Codigo contestador:  Textbox
+clave contestador:  Textbox
+
+Encargado:  Textbox
+Telefono encargado:  Textbox
+
+
+******Seccion informacion tecnica******
+
+Superficie: Number
+Capacidad: Number
+Ambientes: Number
+Habitaciones: Number
+Camas: Number
+Mascotas permitidas: Checkbox
+
+
+******Seccion Precios******
+
+Estadia minima: number
+estadia maxima: number
+Precio semana propietario: decimal
+Precio mensual  propietario: decimal
+Precio quincena propietario: decimal
+Precio semana renta: decimal
+Precio mensual renta: decimal
+Precio quincena renta: decimal
+
+
+
+Comentarios: TextArea
+
+Seccion Servicios: Lista de checkbox
+Seccion Barrios : Lista de checkbox
+Seccion Proximidades: Lista de checkbox
+Seccion amenities: Lista de checkbox
+
