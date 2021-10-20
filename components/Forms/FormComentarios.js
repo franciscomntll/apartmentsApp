@@ -1,5 +1,4 @@
 import CheckBox from "./CheckBox";
-import InputField from "./InputField";
 
 const FormComentarios = () => {
   return (

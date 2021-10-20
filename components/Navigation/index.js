@@ -1,18 +1,24 @@
-import { MessageIcon, NotificationIcon } from "../icons";
+import { MenuIcon, MessageIcon, NotificationIcon } from "../icons";
 import ButtonIcon from "./ButtonIcon";
 import ProfileComponent from "./ProfileComponent";
-import Image from 'next/image'
 import Button from "../Button";
-import router from "next/router";
 import Link from 'next/link'
+import { useState } from "react";
+import Sidebar from "../Sidebar";
 
 const Navigation = () => {
+  const [isShowSidebar, setSidebar] = useState(false)
   return (
-    <header className="w-full bg-white shadow z-50 relative h-20 flex items-center justify-center ">
+    <>
+     <Sidebar state={isShowSidebar} set={act => setSidebar(act)} />
+    <header className="w-full bg-white shadow z-40 relative h-20 flex items-center justify-center ">
       <div className="w-full max-w-screen-xl inset-x-0 mx-auto p-2 flex items-center justify-between ">
-        <Link href={"/"}>
+        <ButtonIcon onClick={() => setSidebar(true)}>
+          <MenuIcon />
+        </ButtonIcon>
+        {/* <Link href={"/"}>
         <Image src={"/logo.png"}  width={150} height={'50'} objectFit={"contain"} objectPosition={"center"} />
-        </Link>
+        </Link> */}
         <div className="flex items-center gap-2">
           <ButtonIcon>
             <MessageIcon className="w-6 h-6" />
@@ -30,6 +36,7 @@ const Navigation = () => {
         </div>
       </div>
     </header>
+    </>
   );
 };
 
