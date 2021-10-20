@@ -9,7 +9,7 @@ const ProfileComponent = ({image}) => {
         <>
       <button className="flex items-center gap-2 bg-white p-2 active:bg-gray-100 transition duration-200 rounded-xl relative"
       onClick={() => setOpen(!isOpen)} >
-        <div className="hidden md:fflex flex-col items-end text-gray-900 leading-4">
+        <div className="hidden md:flex flex-col items-end text-gray-900 leading-4">
           <h3 className="text-gray-900 font-bold text-sm">Jhon Doe</h3>
           <p className="text-gray-900 text-xs">Guest</p>
         </div>

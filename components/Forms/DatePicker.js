@@ -47,7 +47,7 @@ const DateComponent = ({ set, setState }) => {
     } 
   return (
     <>
-      <div className="absolute bottom-0 left-0 bg-white rounded-lg p-2 transform translate-y-full z-30  ">
+      <div className="fixed mx-auto inset-x-0 top-1/4 w-max  bg-white rounded-lg p-2 z-30  ">
         <DayPicker onDayClick={handleClickDay} />
       </div>
       <style jsx>
