@@ -1,74 +1,103 @@
+import { Form, Formik, useFormikContext } from "formik";
 import { useEffect, useState } from "react";
+import Button from "../components/Button";
+import FormGeneral from "../components/Forms/FormGeneral";
+import FormUbicacion from "../components/Forms/FormUbicacion";
+import { ArrowIcon } from "../components/icons";
+import Link from "next/link";
+
+const phases = [
+  { title: "General", component: <FormGeneral /> },
+  { title: "Dirección", component: <FormUbicacion /> },
+  { title: "Comunicación", component: <FormComunicacion /> },
+  { title: "Info Tecnica", component: <FormInfoTecnica /> },
+  { title: "Precios", component: <FormPrecios /> },
+  { title: "Comentarios", component: <FormComentarios /> },
+];
 
 const PanelComponent = () => {
-    const [ReadySteps, setSteps] = useState([]);
+  const [phase, setPhase] = useState(0);
+
+  const initialValues = {
+   
+  };
   return (
-    <div className="mx-auto max-w-screen-lg inset-x-0 p-12 ">
-      <StepToStepComponent />
-    </div>
+    <Formik initialValues={initialValues} onSubmit={() => alert("hola")}>
+      <section>
+        <Header />
+        <div className=" max-w-screen-lg mx-3 md:mx-auto inset-x-0 bg-white rounded-xl -mt-16">
+          <Tabs set={(act) => setPhase(act)} state={phase} />
+          <Form>
+            {phases.map((item, idx) => (
+              <div
+                key={idx}
+                className={`p-6 grid md:grid-cols-2 gap-6 ${
+                  phase === idx ? "block" : "hidden"
+                }`}
+              >
+                {item.component}
+              </div>
+            ))}
+          </Form>
+        </div>
+      </section>
+    </Formik>
   );
 };
 
 export default PanelComponent;
 
-const Step = ({ title, phase, state }) => {
-  const [isActive, setActive] = useState(false);
-
-  useEffect(() => {
-    setActive(state);
-  }, [state]);
+const Tabs = ({ set, state }) => {
   return (
-    <div
-      className={`flex flex-col relative items-center w-max relative rounded-full  z-20 ${
-        isActive ? "text-white bg-purple-500" : "text-purple-500 bg-white"
-      }`}
-    >
-      <div className="rounded-full relative border-2 border-purple-500 w-12 h-12 flex items-center justify-center">
-        <p className="text-lg font-bold">{phase}</p>
-      </div>
-      <p className="text-xs  font-medium absolute w-max text-center bottom-0 transform translate-y-full pt-1 text-purple-500">
-        {title}
-      </p>
+    <div className="w-full flex items-center rounded-t-xl overflow-hidden overflow-x-auto">
+      {phases.map((item, idx) => (
+        <button
+          key={idx}
+          className={`flex items-center hover:bg-gray-500 hover:text-white  transition ${
+            state == idx ? "bg-gray-500 text-white" : ""
+          } px-4 py-4`}
+          onClick={() => set(idx)}
+        >
+          <p className="text-sm w-max">{item.title}</p>
+        </button>
+      ))}
     </div>
   );
 };
 
-const StepToStepComponent = () => {
-  const [ReadySteps, setSteps] = useState([{ title: "General" }]);
-  const ValidationSteps = (item) => {
-    return (
-      ReadySteps.findIndex(
-        (el) => el.title.toLowerCase() == item.title.toLowerCase()
-      ) >= 0
-    );
-  };
+import FormComunicacion from "../components/Forms/FormComunicacion";
+import FormInfoTecnica from "../components/Forms/FormInfoTecnica";
+import FormPrecios from "../components/Forms/FormPrecios";
+import FormComentarios from "../components/Forms/FormComentarios";
 
-  const Steps = [
-    { title: "General" },
-    { title: "Ubicación" },
-    { title: "Comunicación" },
-    { title: "Info Tecnica" },
-    { title: "Precios" },
-    { title: "Comentarios" },
-    { title: "Caracteristicas" },
-  ];
+const Header = () => {
+  const { values, submitForm } = useFormikContext();
+  console.log(values);
   return (
-    <div className="flex justify-between w-full relative">
-      {Steps.map((item, idx) => {
-        console.log(item.title);
-        console.log(ValidationSteps(item));
-        return (
-          <Step
-            key={idx}
-            state={ValidationSteps(item)}
-            phase={idx + 1}
-            title={item.title}
-          />
-        );
-      })}
-      <span  className="w-full absolute h-1.5 bg-purple-200 inset-y-0 my-auto z-10 border rounded-lg overflow-hidden">
-        <svg className="bg-purple-500" width="100%" />
-      </span>
+    <div className="bg-gray-700 w-full pb-24 p-8  ">
+      <div className="gap-4 flex flex-col max-w-screen-lg mx-auto inset-x-0">
+        <Link href={"/"}>
+          <span className="w-full text-white flex items-center gap-1 text-xs">
+            <ArrowIcon className="w-4 h-4 text-white" />
+            Apartamentos
+          </span>
+        </Link>
+        <div className="flex items-center  justify-between">
+          <div className="flex items-center gap-4">
+            <div className="hidden md:block w-16 h-16 rounded bg-white" />
+            <span className="text-white flex flex-col">
+              <h1 className=" text-lg">{values?.agencia}</h1>
+              <p className="hidden md:block text-xs text-light">
+                Detalles del apartamento
+              </p>
+            </span>
+          </div>
+          <div className="flex items-center gap-4">
+            <Button variant="secondary">Remover</Button>
+            <Button variant="primary">Guardar</Button>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

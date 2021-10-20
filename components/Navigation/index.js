@@ -8,11 +8,11 @@ import Link from 'next/link'
 
 const Navigation = () => {
   return (
-    <header className="w-full bg-white shadow z-20 relative ">
-      <div className="max-w-screen-xl inset-x-0 mx-auto p-2 flex justify-between">
-        <button onClick={() => router.push("/")}>
-        <Image src={"/logo.png"} layout={"fixed"} width={200} height={60} objectFit={"contain"} objectPosition={"center"} />
-        </button>
+    <header className="w-full bg-white shadow z-50 relative h-20 flex items-center justify-center ">
+      <div className="w-full max-w-screen-xl inset-x-0 mx-auto p-2 flex items-center justify-between ">
+        <Link href={"/"}>
+        <Image src={"/logo.png"}  width={150} height={'50'} objectFit={"contain"} objectPosition={"center"} />
+        </Link>
         <div className="flex items-center gap-2">
           <ButtonIcon>
             <MessageIcon className="w-6 h-6" />
@@ -24,7 +24,7 @@ const Navigation = () => {
           
           <Link href="/panel">
           <Button variant={"primary"}>
-            Publicar departamento
+            Publicar
           </Button>
           </Link>
         </div>
