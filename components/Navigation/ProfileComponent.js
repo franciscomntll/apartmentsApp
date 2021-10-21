@@ -31,9 +31,7 @@ const ProfileComponent = ({image}) => {
 
 
   const MenuComponent = ({state}) => {
-      useEffect(() => {
-          console.log("render")
-      }, [])
+
       const listMenu = [
           {title: "Login", route: "/", icon: <LoginIcon className="w-5 h-5 " />},
           {title: "Register", route: "/", icon: <AddUserIcon className="w-5 h-5" />}

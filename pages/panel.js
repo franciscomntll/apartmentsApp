@@ -72,7 +72,6 @@ import FormComentarios from "../components/Forms/FormComentarios";
 
 const Header = () => {
   const { values, submitForm } = useFormikContext();
-  console.log(values);
   return (
     <div className="bg-gray-700 w-full pb-24 p-8  ">
       <div className="gap-4 flex flex-col max-w-screen-lg mx-auto inset-x-0">

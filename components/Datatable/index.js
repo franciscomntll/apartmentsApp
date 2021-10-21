@@ -5,26 +5,43 @@ import ActionsComponent from './ActionsComponent'
 import ActiveComponent from './ActiveComponent'
 import { IndeterminateCheckbox } from './CheckBox'
  
-const DataTable = () => {
+const DataTable = ({setShowForm}) => {
    const data = useMemo(
      () => [
        {
-         col1: 'Hello',
-         col2: 'World',
+         nombre: 'Hello',
+         categoria: 'World',
          precio : "10",
          cantidad : 2,
          activo: true
        },
        {
-         col1: 'react-table',
-         col2: 'rocks',
+         nombre: 'react-table',
+         categoria: 'rocks',
          activo : false
        },
        {
-         col1: 'whatever',
-         col2: 'you want',
+         nombre: 'whatever',
+         categoria: 'you want',
          activo : false
        },
+       {
+        nombre: 'Hello',
+        categoria: 'World',
+        precio : "10",
+        cantidad : 2,
+        activo: true
+      },
+      {
+        nombre: 'react-table',
+        categoria: 'rocks',
+        activo : false
+      },
+      {
+        nombre: 'whatever',
+        categoria: 'you want',
+        activo : false
+      },
      ],
      []
    )
@@ -33,11 +50,11 @@ const DataTable = () => {
      () => [
        {
          Header: 'Nombre',
-         accessor: 'col1', // accessor is the "key" in the data
+         accessor: 'nombre', // accessor is the "key" in the data
        },
        {
          Header: 'Categoria',
-         accessor: 'col2',
+         accessor: 'categoria',
        },
        {
         Header: 'Precio',
@@ -73,9 +90,11 @@ const DataTable = () => {
     {
       columns,
       data,
+      setShowForm,
     },
     useSortBy,
     useRowSelect,
+    
     hooks => {
       hooks.visibleColumns.push(columns => [
         // Let's make a column for selection
