@@ -3,9 +3,9 @@ import { useField } from "formik";
 const ToggleButton = ({label, ...props}) => {
   const [field, meta, helpers] = useField(props);
   return (
-    <div class="flex items-center justify-start w-full ">
-      <label for="toggleB" class="flex items-center cursor-pointer text-sm">
-        <div class="relative">
+    <div className="flex items-center justify-start w-full ">
+      <label for="toggleB" className="flex items-center cursor-pointer text-sm">
+        <div className="relative">
           <input
             type="checkbox"
             id="toggleB"

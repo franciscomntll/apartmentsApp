@@ -1,11 +1,11 @@
 import PaginationDesktop from "./Pagination"
 import PaginationMobile from "./PaginationMobile"
 
-const Pagination = () => {
+const Pagination = (props) => {
     return (
         <>
-           <PaginationDesktop/>
-           <PaginationMobile /> 
+           <PaginationDesktop {...props}/>
+           <PaginationMobile {...props}/> 
         </>
     )
 }

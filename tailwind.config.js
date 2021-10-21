@@ -7,7 +7,11 @@ module.exports = {
     fontFamily: {
       "sans": ['Poppins', ...defaultTheme.fontFamily.sans],
     },
-    extend: {},
+    extend: {
+      colors: {
+        primary : "#252f3e"
+      }
+    },
   },
   variants: {
     extend: {
