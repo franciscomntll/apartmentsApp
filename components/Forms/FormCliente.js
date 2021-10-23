@@ -1,4 +1,5 @@
 import { Form, Formik } from "formik";
+import api from "../../api";
 import Button from "../Button";
 import CheckBox from "./CheckBox";
 import InputField from "./InputField";
@@ -18,8 +19,17 @@ const FormCliente = ({ data, title, onCancel }) => {
     edit : "Editar",
     view : "Datos del"
   }
+
+  const handleSubmit = async (values, actions) => {
+    try {
+      console.log(values)
+      const res = await api.saveApartments(values)
+    } catch (error) {
+      console.log(error)      
+    }
+  }
   return (
-    <Formik initialValues={data.data ?? initialValues} onSubmit={() => {}}>
+    <Formik initialValues={data.data ?? initialValues} onSubmit={handleSubmit}>
       <div className="w-full">
         <h2 className="text-lg font-bold w-full text-center pb-4 h-12">{data.type && `${titles[data.type]} cliente`} </h2>
         <Form className="grid grid-cols-2 gap-4">

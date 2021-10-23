@@ -15,7 +15,7 @@ import ActiveComponent from "./ActiveComponent";
 import { IndeterminateCheckbox } from "./CheckBox";
 import SearcherDataTable from "./SearcherDataTable";
 
-const DataTable = ({ setShowForm }) => {
+const DataTable = () => {
   const [datos, setDatos] = useState(fakeData);
 
   const columns = useMemo(
@@ -80,7 +80,6 @@ const DataTable = ({ setShowForm }) => {
     {
       columns,
       data: datos,
-      setShowForm,
       initialState: { pageIndex: 0 },
       HandleRemove,
     },
@@ -125,7 +124,7 @@ const DataTable = ({ setShowForm }) => {
   }, [selectedFlatRows]);
   return (
     <>
-      <div className="w-full py-2 grid grid-cols-4">
+      <div className="w-full py-2 grid grid-cols-4 transition-all">
         <div >
           {selectedFlatRows.length > 0 && (
             <Button

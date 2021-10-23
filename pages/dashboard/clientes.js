@@ -27,7 +27,7 @@ const panel2 = () => {
         />
         <div className="table-wrapper h-full -mt-28 mx-3 rounded-xl">
           <div className="data-table bg-white  w-full mx-auto inset-x-0 max-w-screen-lg rounded-2xl p-4 shadow-md">
-            <DataTable setShowForm={(act) => setShow(act)} />
+            <DataTable />
           </div>
         </div>
       </div>
