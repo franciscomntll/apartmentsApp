@@ -12,12 +12,27 @@ const DefaultLayout = ({ children }) => {
           </main>
         </div>
       </PopupContextProvider>
-      <style jsx>
+      <style jsx global>
         {`
           main {
             min-height: calc(100vh - 5rem);
             padding-bottom: 5rem;
           }
+
+          ::-webkit-scrollbar {
+            width: 8px;
+            display: none;
+          }
+          ::-webkit-scrollbar-track {
+            background: #f1f1f1
+            border-radius: 6px;
+          }
+          ::-webkit-scrollbar-thumb {
+            background: pink;
+            border-radius: 6px;
+            height: 50%;
+          }
+        
         `}
       </style>
     </>

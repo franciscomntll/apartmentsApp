@@ -1,11 +1,8 @@
 import { Form, Formik } from "formik";
 import api from "../../api";
-import Button from "../Button";
-import CheckBox from "./CheckBox";
-import InputField from "./InputField";
-import ToggleButton from "./ToggleButton";
+import {Button,InputField, ToggleButton} from "../Inputs";
 
-const FormCliente = ({ data, title, onCancel }) => {
+export const FormCliente = ({ data, title, onCancel }) => {
   const initialValues= {
     nombre: "",
     categoria: "",
@@ -76,4 +73,4 @@ const FormCliente = ({ data, title, onCancel }) => {
   );
 };
 
-export default FormCliente;
+

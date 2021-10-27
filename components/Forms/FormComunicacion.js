@@ -1,6 +1,6 @@
-import InputField from "./InputField";
+import { InputField } from "../Inputs";
 
-const FormComunicacion = () => {
+export const FormComunicacion = () => {
   return (
     <>
       <InputField
@@ -43,4 +43,4 @@ const FormComunicacion = () => {
   );
 };
 
-export default FormComunicacion;
+

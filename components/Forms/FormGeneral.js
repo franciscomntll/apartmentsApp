@@ -1,29 +1,18 @@
-import { Formik, Form } from 'formik'
 import React from 'react'
-import DatePicker from './DatePicker'
-import InputField from './InputField'
-import SelectField from './SelectField'
+import { SelectField, DatePicker} from '../Inputs'
 
-const initialValues = {
-    agencia: "",
-    propietario: "",
-    orientacion : "",
-    fechaIncorporacion : ""
-}
-
-const FormGeneral = () => {
-    const list = [
+export const FormGeneral = () => {
+    const options = [
         {title: "Hola"},
         {title: "Mundo"},
     ]
     return (
         <>
-            <SelectField list={list} label={"Agencia"} name={"agencia"}  />
-            <SelectField list={list} label={"Propietario"} name={"propietario"}  />
-            <SelectField list={list} label={"Categoria"} name={"categoria"}  />
-            <DatePicker name="fechaIncorporacion" label={"Fecha de incorporación"}/>
+            <SelectField options={options} label={"Agencia"} name={"agencia"}  />
+            <SelectField options={options} label={"Propietario"} name={"propietario"}  />
+            <SelectField options={options} label={"Categoria"} name={"categoria"}  />
+            <DatePicker label={"Fecha de incorporación"} name="fechaIncorporacion"/>
         </>
     )
 }
 
-export default FormGeneral

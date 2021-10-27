@@ -1,7 +1,6 @@
-import InputField from "./InputField";
-import ToggleButton from "./ToggleButton";
+import {InputField, ToggleButton} from "../Inputs";
 
-const FormInfoTecnica = () => {
+export const FormInfoTecnica = () => {
   return (
     <>
       <InputField
@@ -37,14 +36,3 @@ const FormInfoTecnica = () => {
     </>
   );
 };
-
-export default FormInfoTecnica;
-
-// ******Seccion informacion tecnica******
-
-// Superficie: Number
-// Capacidad: Number
-// Ambientes: Number
-// Habitaciones: Number
-// Camas: Number
-// Mascotas permitidas: Checkbox

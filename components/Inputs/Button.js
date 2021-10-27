@@ -1,4 +1,4 @@
-const Button = ({variant, children, ...props}) => {
+export const Button = ({variant, children, ...props}) => {
     const variants = {
         primary : "text-white bg-blue-500 hover:bg-blue-600 ",
         secondary : "relative inline-flex items-center rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50",
@@ -10,6 +10,3 @@ const Button = ({variant, children, ...props}) => {
         </button>
         )
 }
-
-export default Button
- 

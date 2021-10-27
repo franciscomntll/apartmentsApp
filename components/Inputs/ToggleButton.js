@@ -1,10 +1,10 @@
 import { useField } from "formik";
 
-const ToggleButton = ({label, ...props}) => {
+export const ToggleButton = ({label, ...props}) => {
   const [field, meta, helpers] = useField(props);
   return (
-    <div className="flex items-center justify-start w-full ">
-      <label for="toggleB" className="flex items-center cursor-pointer text-sm">
+    <div className="flex items-center justify-start w-full relative ">
+      <label htmlFor="toggleB" className="flex items-center cursor-pointer text-sm">
         <div className="relative">
           <input
             type="checkbox"
@@ -19,8 +19,12 @@ const ToggleButton = ({label, ...props}) => {
         </div>
         <div className="ml-3 text-gray-700 font-medium">{label}</div>
       </label>
+      {meta.touched && meta.error ? (
+          <div className="error text-red-500 text-xs absolute pl-1 pt-0.5 bottom-0 left-0 transform translate-y-full">
+            {meta.error}
+          </div>
+        ) : null}
     </div>
   );
 };
 
-export default ToggleButton;

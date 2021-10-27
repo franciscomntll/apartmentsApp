@@ -1,7 +1,6 @@
 import { MenuIcon, MessageIcon, NotificationIcon } from "../icons";
-import ButtonIcon from "./ButtonIcon";
 import ProfileComponent from "./ProfileComponent";
-import Button from "../Button";
+import {Button, ButtonIcon} from "../Inputs";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import Sidebar from "../Sidebar";
@@ -27,20 +26,20 @@ const Navigation = () => {
           )}
 
           <div className="flex items-center gap-2">
+            <ProfileComponent image={"/profile.jpg"} />
             <ButtonIcon>
               <MessageIcon className="w-6 h-6" />
             </ButtonIcon>
             <ButtonIcon>
               <NotificationIcon className="w-6 h-6" />
             </ButtonIcon>
-            <ProfileComponent image={"/profile.jpg"} />
 
-            {/* <Link href="/panel">
+          </div>
+            <Link href="/panel">
           <Button variant={"primary"}>
             Publicar
           </Button>
-          </Link> */}
-          </div>
+          </Link>
         </div>
       </header>
     </>

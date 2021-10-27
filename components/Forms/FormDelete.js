@@ -1,8 +1,8 @@
 import { useContext } from "react";
 import { Estado, PopupContext } from "../../context/PopupContext";
-import Button from "../Button";
+import {Button} from "../Inputs";
 
-const FormDelete = ({data, answer}) => {
+export const FormDelete = ({data, answer}) => {
     const {setShow} = useContext(PopupContext)
   return (
     <>
@@ -19,4 +19,3 @@ const FormDelete = ({data, answer}) => {
   );
 };
 
-export default FormDelete;

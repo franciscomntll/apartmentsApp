@@ -1,9 +1,8 @@
 import { useRef, useState } from "react";
 import Slider from "react-slick";
-import Button from "../Button";
+import { Button, ButtonIcon } from "../Inputs";
 import {
   AmbientesIcon,
-  ArrowIcon,
   BathroomIcon,
   CocheraIcon,
   DormitorioIcon,
@@ -11,28 +10,33 @@ import {
   ShareIcon,
   TotalIcon,
 } from "../icons";
-import ButtonIcon from "../Navigation/ButtonIcon";
-import "slick-carousel/slick/slick.css"; 
+import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-const CardComponent = () => {
-  const refSlider = useRef()
+const CardComponent = ({data}) => {
+  const refSlider = useRef();
   return (
     <div className="w-full rounded-2xl overflow-hidden shadow-md bg-white flex flex-col gap-2 transform hover:scale-105 transition duration-700 cursor-pointer hover:opacity-95">
-        <div className="w-full h-72 grid grid-cols-1 relative">
-          <div onClick={() => refSlider.current.slickPrev()} className="w-1/2 h-full left-0 z-50 absolute transition bg-gradient-to-l from-transparent to-black opacity-20 "/>
-          <div onClick={() => refSlider.current.slickNext()} className="w-1/2 h-full right-0 z-50 absolute transition bg-gradient-to-r from-transparent to-black opacity-20 "/>
+      <div className="w-full h-72 grid grid-cols-1 relative">
+        <div
+          onClick={() => refSlider.current.slickPrev()}
+          className="w-1/2 h-full left-0 z-50 absolute transition bg-gradient-to-l from-transparent to-black opacity-20 "
+        />
+        <div
+          onClick={() => refSlider.current.slickNext()}
+          className="w-1/2 h-full right-0 z-50 absolute transition bg-gradient-to-r from-transparent to-black opacity-20 "
+        />
 
-      <Slider ref={refSlider} >
-        <img
-          src="banner.jpg"
-          className="w-full h-72 object-cover object-center"
-        />
-        <img
-          src="banner.jpg"
-          className="w-full h-72 object-cover object-center"
-        />
-      </Slider>
+        <Slider ref={refSlider}>
+        {data?.images?.map((item,idx) => (
+            <img
+            key={idx}
+            src={item?.url}
+            alt={item?.altText}
+            className="w-full h-72 object-cover object-center"
+          />
+          ))}
+        </Slider>
       </div>
       <div className="flex flex-col p-3 ">
         <p className="text-sm font-bold">Republica de la India</p>
@@ -58,7 +62,7 @@ const FooterCard = () => {
           <ShareIcon fill={"currentColor"} />
         </ButtonIcon>
       </span>
-      <Button variant={"primary"}>Contactar</Button>
+      <Button variant={"primary"}>Editar</Button>
     </div>
   );
 };

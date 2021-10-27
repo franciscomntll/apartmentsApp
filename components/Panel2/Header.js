@@ -1,4 +1,4 @@
-import Button from "../Button";
+import {Button} from "../Inputs";
 import SearchComponent from "../SearchComponent";
 import { CrossIcon } from "../icons";
 import SearcherDataTable from "../Datatable/SearcherDataTable";

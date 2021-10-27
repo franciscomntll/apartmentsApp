@@ -5,7 +5,7 @@ import ClickAwayListener from "react-click-away-listener";
 import DayPicker from "react-day-picker";
 import "react-day-picker/lib/style.css";
 
-const DatePicker = ({ label, ...props }) => {
+export const DatePicker = ({ label, ...props }) => {
   const [show, setShow] = useState(false);
   const [field, meta, helpers] = useField(props);
   return (
@@ -24,12 +24,15 @@ const DatePicker = ({ label, ...props }) => {
             {...props}
           />
           <p
-            for={field.name}
+            htmlFor={field.name}
             className={`absolute left-2 -top-2 text-gray-400 text-xs transition-all px-1 bg-white cursor-pointer
             peer-placeholder-shown:top-1/4 peer-placeholder-shown:text-sm peer-placeholder-shown:text-gray-400  peer-focus:-top-2 peer-focus:text-gray-600 peer-focus:text-xs  peer-focus:text-xs peer-focus:bg-white peer-focus:px-1 `}
           >
             {label}
           </p>
+          {meta.touched && meta.error ? (
+         <div className="error text-red-500 text-xs absolute pl-1 bottom-0 left-0 transform translate-y-full">{meta.error}</div>
+       ) : null}
         </div>
 
         {show && <DateComponent setState={act => setShow(act)} set={(day) => helpers.setValue(day)} />}
@@ -38,7 +41,6 @@ const DatePicker = ({ label, ...props }) => {
   );
 };
 
-export default DatePicker;
 
 const DateComponent = ({ set, setState }) => {
     const handleClickDay = (day) => {

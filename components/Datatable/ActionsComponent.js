@@ -1,7 +1,7 @@
 import { useContext } from "react"
 import { Estado, PopupContext } from "../../context/PopupContext"
 import { EditIcon, TrashIcon, ViewIcon } from "../icons"
-import ButtonIcon from "../Navigation/ButtonIcon"
+import { ButtonIcon } from "../Inputs"
 
 const ActionsComponent = (props) => {
     const {setShow} = useContext(PopupContext)

@@ -45,3 +45,4 @@ export const fakeData = [
   { id: 10, nombre: "react-table", categoria: "rocks", activo: false },
   { id: 11, nombre: "whatever", categoria: "you want", activo: false },
 ];
+

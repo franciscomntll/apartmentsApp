@@ -18,7 +18,6 @@ const PaginationDesktop = (props) => {
 
   useEffect(() => {
    setActive(pageIndex)
-   console.log(pageIndex)
   }, [pageIndex])
   const pages = () => {
     let arr = [];

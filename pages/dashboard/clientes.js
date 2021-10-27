@@ -1,8 +1,6 @@
 import { useContext, useState } from "react";
-import ClickAwayListener from "react-click-away-listener";
 import DataTable from "../../components/Datatable";
 import FormCliente from "../../components/Forms/FormCliente";
-import FormDelete from "../../components/Forms/FormDelete";
 import Popup from "../../components/Forms/Popup";
 import Header from "../../components/Panel2/Header";
 import { Estado, PopupContext } from "../../context/PopupContext";

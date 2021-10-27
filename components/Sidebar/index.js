@@ -1,6 +1,6 @@
 import ClickAwayListener from "react-click-away-listener";
 import { MenuIcon } from "../icons";
-import ButtonIcon from "../Navigation/ButtonIcon";
+import { ButtonIcon } from "../Inputs";
 
 const Sidebar = ({ set, state }) => {
     const ListMenu = [

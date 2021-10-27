@@ -1,3 +1,4 @@
+"use strict";
 import { useEffect, useState, useMemo } from "react";
 import {
   useFilters,
@@ -8,7 +9,7 @@ import {
   useTable,
 } from "react-table";
 import { fakeData } from "../../fakeData";
-import Button from "../Button";
+import { Button } from "../Inputs";
 import Pagination from "../Pagination";
 import ActionsComponent from "./ActionsComponent";
 import ActiveComponent from "./ActiveComponent";
@@ -91,18 +92,13 @@ const DataTable = () => {
 
     (hooks) => {
       hooks.visibleColumns.push((columns) => [
-        // Let's make a column for selection
         {
           id: "selection",
-          // The header can use the table's getToggleAllRowsSelectedProps method
-          // to render a checkbox
           Header: ({ getToggleAllRowsSelectedProps }) => (
             <div>
               <IndeterminateCheckbox {...getToggleAllRowsSelectedProps()} />
             </div>
           ),
-          // The cell can use the individual row's getToggleRowSelectedProps method
-          // to the render a checkbox
           Cell: ({ row }) => (
             <div>
               <IndeterminateCheckbox {...row.getToggleRowSelectedProps()} />
@@ -119,20 +115,18 @@ const DataTable = () => {
     const newArr = datos.filter((item) => !arrIDs.includes(item.id));
     setDatos(newArr);
   };
-  useEffect(() => {
-    console.log(selectedFlatRows);
-  }, [selectedFlatRows]);
+
   return (
     <>
       <div className="w-full py-2 grid grid-cols-4 transition-all">
-        <div >
+        <div>
           {selectedFlatRows.length > 0 && (
             <Button
-            variant={"secondary"}
-            onClick={() => handleRemoveAll(selectedFlatRows)}
-          >
-            Borrar selección
-          </Button>
+              variant={"secondary"}
+              onClick={() => handleRemoveAll(selectedFlatRows)}
+            >
+              Borrar selección
+            </Button>
           )}
         </div>
         <SearcherDataTable

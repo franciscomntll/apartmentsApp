@@ -1,7 +1,6 @@
-import InputField from "./InputField";
-import ToggleButton from "./ToggleButton";
+import {InputField} from "../Inputs";
 
-const FormPrecios = () => {
+export const FormPrecios = () => {
   return (
     <>
       <InputField
@@ -10,13 +9,6 @@ const FormPrecios = () => {
         type={"number"}
         autoComplete={"off"}
         autoFocus
-      />
-
-      <InputField
-        label={"Estadia maxima"}
-        name={"estadiaMaxima"}
-        type={"number"}
-        autoComplete={"off"}
       />
 
       <InputField
@@ -43,7 +35,7 @@ const FormPrecios = () => {
       />
       <InputField
         label={"Precio mensual propietario"}
-        name={"quincenaPropietario"}
+        name={"mensualPropietario"}
         type={"number"}
         autoComplete={"off"}
         step={".01"}
@@ -73,4 +65,3 @@ const FormPrecios = () => {
   );
 };
 
-export default FormPrecios;
