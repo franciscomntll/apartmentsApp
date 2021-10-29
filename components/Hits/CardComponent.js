@@ -1,4 +1,5 @@
-import { useRef, useState } from "react";
+import { memo, useRef, useState } from "react";
+import Link from 'next/link'
 import Slider from "react-slick";
 import { Button, ButtonIcon } from "../Inputs";
 import {
@@ -13,7 +14,7 @@ import {
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-const CardComponent = ({data}) => {
+const CardComponent = memo(({data}) => {
   const refSlider = useRef();
   return (
     <div className="w-full rounded-2xl overflow-hidden shadow-md bg-white flex flex-col gap-2 transform hover:scale-105 transition duration-700 cursor-pointer hover:opacity-95">
@@ -43,14 +44,15 @@ const CardComponent = ({data}) => {
         <p className="text-xs ">Palermo Chico, Palermo</p>
         <Features />
       </div>
-      <FooterCard />
+      <FooterCard {...data} />
     </div>
   );
-};
+});
 
 export default CardComponent;
 
-const FooterCard = () => {
+const FooterCard = (props) => {
+  console.log(props)
   const [isFav, setFav] = useState(false);
   return (
     <div className="flex items-center justify-between text-gray-600 p-3 border-t border-gray-300">
@@ -62,7 +64,9 @@ const FooterCard = () => {
           <ShareIcon fill={"currentColor"} />
         </ButtonIcon>
       </span>
+      <Link href={`/panel?type=edit&id=${props?.id}`}>
       <Button variant={"primary"}>Editar</Button>
+      </Link>
     </div>
   );
 };

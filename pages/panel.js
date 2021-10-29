@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Form, Formik, useFormikContext } from "formik";
 import { Button } from "../components/Inputs";
@@ -12,15 +12,18 @@ import {
   FormImagenes,
 } from "../components/Forms";
 import { ArrowIcon } from "../components/icons";
-import { initialValues, validationSchema } from "../components/Forms/ValidationSchema";
+import {
+  initialValues,
+  validationSchema,
+} from "../components/Forms/ValidationSchema";
 
-
-
-const PanelComponent = () => {
-  const [type, setType] = useState("create")
+const PanelComponent = (props) => {
+  const [type, setType] = useState(props.type);
   const [phase, setPhase] = useState(0);
-  const [imagePrincipal, setImagePrincipal] = useState({})
-  
+  const [imagePrincipal, setImagePrincipal] = useState({});
+  useEffect(() => {
+    setType(props.type)
+  }, [props.type])
   const phases = [
     { title: "General", component: <FormGeneral /> },
     { title: "Dirección", component: <FormUbicacion /> },
@@ -28,9 +31,14 @@ const PanelComponent = () => {
     { title: "Info Tecnica", component: <FormInfoTecnica /> },
     { title: "Precios", component: <FormPrecios /> },
     { title: "Comentarios", component: <FormComentarios /> },
-    { title: "Imagenes", component: <FormImagenes setImagePrincipal={file => setImagePrincipal(file)} /> },
+    {
+      title: "Imagenes",
+      component: (
+        <FormImagenes setImagePrincipal={(file) => setImagePrincipal(file)} />
+      ),
+    },
   ];
-  
+
   return (
     <Formik
       initialValues={initialValues}
@@ -39,7 +47,7 @@ const PanelComponent = () => {
     >
       <section>
         <Form>
-          <Header image={imagePrincipal.image} />
+          <Header type={type} image={imagePrincipal.image} />
           <div className="max-w-screen-lg mx-3 md:mx-auto inset-x-0 bg-white rounded-xl -mt-16">
             <Tabs set={(act) => setPhase(act)} state={phase} phases={phases} />
             {phases.map((item, idx) => (
@@ -80,7 +88,7 @@ const Tabs = ({ set, state, phases }) => {
   );
 };
 
-const Header = ({image}) => {
+const Header = ({ image, type }) => {
   const { values, submitForm } = useFormikContext();
   return (
     <div className="bg-gray-700 w-full pb-24 p-8  ">
@@ -93,7 +101,10 @@ const Header = ({image}) => {
         </Link>
         <div className="flex items-center  justify-between">
           <div className="flex items-center gap-4">
-            <img src={image} className="hidden md:block w-32 h-32 rounded bg-white object-cover object-center" />
+            <img
+              src={image}
+              className="hidden md:block w-32 h-32 rounded bg-white object-cover object-center"
+            />
             <span className="text-white flex flex-col">
               <h1 className=" text-xl">
                 {values?.agencia ?? "Nombre del apartamento"}
@@ -104,12 +115,20 @@ const Header = ({image}) => {
             </span>
           </div>
           <div className="flex items-center gap-4">
-            <Button type={"button"} variant="secondary">
-              Remover
-            </Button>
-            <Button type={"submit"} variant="primary">
-              Guardar
-            </Button>
+            {type !== "edit" ? (
+              <Button type={"submit"} variant="primary">
+                Añadir nuevo departamento
+              </Button>
+            ) : (
+              <>
+                <Button type={"button"} variant="secondary">
+                  Remover
+                </Button>
+                <Button type={"submit"} variant="primary">
+                  Guardar
+                </Button>
+              </>
+            )}
           </div>
         </div>
       </div>
@@ -117,3 +136,8 @@ const Header = ({image}) => {
   );
 };
 
+export async function getServerSideProps(context) {
+  return {
+    props: context.query, // will be passed to the page component as props
+  };
+}

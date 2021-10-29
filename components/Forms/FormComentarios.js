@@ -64,7 +64,7 @@ const FeaturesComponent = ({ title, FeaturesList = [] }) => {
       {({ insert, remove, push }) => (
         <div className="p-3 w-full">
           <h2 className="text-base font-bold text-sm">{title}</h2>
-          <div className="grid w-full gap-8 py-4 sm:grid-cols-2 md:grid-cols-3  overflow-y-auto">
+          <div className="grid w-full gap-8 py-4 sm:grid-cols-2 md:grid-cols-3  ">
             {FeaturesList.map((item, idx) => (
               <CheckBox
                 key={idx}
