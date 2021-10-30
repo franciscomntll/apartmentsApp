@@ -16,7 +16,7 @@ const initialContext = {
 const PopupContext = createContext(initialContext);
 
 const PopupContextProvider = ({ children }) => {
-    const [isShow, setShow] = useState(initialContext);
+    const [isShow, setShow] = useState(new Estado);
   
     return (
       <PopupContext.Provider value={{ isShow, setShow }}>

@@ -11,11 +11,11 @@ const panel2 = () => {
     <>
       <Popup state={isShow}>
         <div className="relative bg-white p-6 shadow-md rounded-2xl md:w-1/2 xl:w-2/5 h-max mx-5 md:mx-0 ">
-          <FormCliente
+          {/* <FormCliente
             data={isShow}
             onCancel={() => setShow(new Estado())}
             title={"Crear cliente"}
-          />
+          /> */}
         </div>
       </Popup>
       <div className="w-full ">
