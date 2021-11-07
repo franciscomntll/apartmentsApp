@@ -16,14 +16,18 @@ import {
   initialValues,
   validationSchema,
 } from "../components/Forms/ValidationSchema";
+import api from "../api";
 
 const PanelComponent = (props) => {
-  const [type, setType] = useState(props.type);
+  const [type, setType] = useState(props);
   const [phase, setPhase] = useState(0);
   const [imagePrincipal, setImagePrincipal] = useState({});
   useEffect(() => {
-    setType(props.type)
-  }, [props.type])
+    setType(props)
+  }, [props])
+
+  
+  
   const phases = [
     { title: "General", component: <FormGeneral /> },
     { title: "Dirección", component: <FormUbicacion /> },
@@ -41,19 +45,19 @@ const PanelComponent = (props) => {
 
   return (
     <Formik
-      initialValues={initialValues}
+      initialValues={type || initialValues}
       validationSchema={validationSchema}
-      onSubmit={(values) => console.table(values)}
+      onSubmit={(values) => console.log(values)}
     >
       <section>
         <Form>
-          <Header type={type} image={imagePrincipal.image} />
+          <Header type={type.type} image={imagePrincipal.image} />
           <div className="max-w-screen-lg mx-3 md:mx-auto inset-x-0 bg-white rounded-xl -mt-16">
             <Tabs set={(act) => setPhase(act)} state={phase} phases={phases} />
             {phases.map((item, idx) => (
               <div
                 key={idx}
-                className={`p-6 grid md:grid-cols-2 gap-6 ${
+                className={`p-6 grid ${item.title === "Comentarios" ? "" : "md:grid-cols-2"} gap-6 ${
                   phase === idx ? "block" : "hidden"
                 }`}
               >
@@ -91,7 +95,7 @@ const Tabs = ({ set, state, phases }) => {
 const Header = ({ image, type }) => {
   const { values, submitForm } = useFormikContext();
   return (
-    <div className="bg-gray-700 w-full pb-24 p-8  ">
+    <div className="bg-indigo-600 w-full pb-24 p-8  ">
       <div className="gap-4 flex flex-col max-w-screen-lg mx-auto inset-x-0">
         <Link href={"/"}>
           <span className="w-full text-white flex items-center gap-1 text-xs">
@@ -107,10 +111,10 @@ const Header = ({ image, type }) => {
             />
             <span className="text-white flex flex-col">
               <h1 className=" text-xl">
-                {values?.agencia ?? "Nombre del apartamento"}
+                {values?.category?.title ?? "Nombre del apartamento"}
               </h1>
               <p className="hidden md:block text-xs text-light">
-                Detalles del apartamento
+                {values?.agency?.title}
               </p>
             </span>
           </div>
@@ -137,7 +141,22 @@ const Header = ({ image, type }) => {
 };
 
 export async function getServerSideProps(context) {
+ 
+  if(context.query.id){
+    try {
+      const {data} = await api.fetchApartmentByID(context.query.id)
+      return {
+        props: {...data, ...context.query} 
+      };
+    } catch (error) {
+      console.log(error)   
+      return {
+        props : {}
+      };    
+    }
+    
+  }
   return {
-    props: context.query, // will be passed to the page component as props
-  };
+    props : {}
+  }; 
 }

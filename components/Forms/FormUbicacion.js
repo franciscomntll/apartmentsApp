@@ -5,56 +5,56 @@ export const FormUbicacion = () => {
     <>
       <InputField
         label={"Calle"}
-        name={"calle"}
+        name={"address.street"}
         type={"text"}
         autoComplete={"off"}
         autoFocus
       />
       <InputField
         label={"Número"}
-        name={"numero"}
+        name={"address.number"}
         type={"number"}
         autoComplete={"off"}
       />
       <InputField
         label={"Piso"}
-        name={"piso"}
+        name={"address.floor"}
         type={"number"}
         autoComplete={"off"}
       />
       <InputField
         label={"Apartamento"}
-        name={"apartamento"}
-        type={"text"}
+        name={"address.apartment"}
+        type={"number"}
         autoComplete={"off"}
       />
       <InputField
         label={"Torre"}
-        name={"torre"}
+        name={"address.tower"}
         type={"text"}
         autoComplete={"off"}
       />
       <InputField
         label={"Entre calle 1"}
-        name={"entreCalle1"}
+        name={"address.between1"}
         type={"text"}
         autoComplete={"off"}
       />
       <InputField
         label={"Entre calle 2"}
-        name={"entreCalle2"}
+        name={"address.between2"}
         type={"text"}
         autoComplete={"off"}
       />
       <InputField
         label={"Ciudad"}
-        name={"ciudad"}
+        name={"address.city"}
         type={"text"}
         autoComplete={"off"}
       />
       <InputField
         label={"Codigo postal"}
-        name={"codigoPostal"}
+        name={"address.postalCode"}
         type={"number"}
         autoComplete={"off"}
       />

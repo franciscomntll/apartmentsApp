@@ -5,32 +5,38 @@ export const FormInfoTecnica = () => {
     <>
       <InputField
         label={"Superficie"}
-        name={"superficie"}
+        name={"technicalData.area"}
         type={"number"}
         autoComplete={"off"}
         autoFocus
       />
       <InputField
         label={"Capacidad"}
-        name={"capacidad"}
+        name={"technicalData.capacity"}
         type={"number"}
         autoComplete={"off"}
       />
       <InputField
         label={"Ambientes"}
-        name={"ambientes"}
+        name={"technicalData.enviroments"}
+        type={"number"}
+        autoComplete={"off"}
+      />
+      <InputField
+        label={"Habitaciones"}
+        name={"technicalData.bedrooms"}
         type={"number"}
         autoComplete={"off"}
       />
       <InputField
         label={"Camas"}
-        name={"camas"}
+        name={"technicalData.beds"}
         type={"number"}
         autoComplete={"off"}
       />
       <ToggleButton
         label={"Mascotas permitidas"}
-        name={"mascotas"}
+        name={"petsAllowed"}
         text={["no acepta", "si acepta"]}
       />
     </>

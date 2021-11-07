@@ -1,83 +1,119 @@
 import CheckBox from "../Inputs/CheckBox";
 import { TextAreaField } from "../Inputs/TextAreaField";
 import { FieldArray } from "formik";
+import {memo, useEffect, useState} from 'react'
+import api from "../../api";
 
 export const FormComentarios = () => {
-  const ListCheck = [
-    { label: "servicio1", name: "servicio1" },
-    { label: "servicio2", name: "servicio2" },
-    { label: "servicio3", name: "servicio3" },
-    { label: "servicio4", name: "servicio4" },
-  ];
+  const [amenities, setAmenities] = useState([])
+  const [Neighbourhoods, setNeighbourhoods] = useState([])
+  const [Proximities, setProximities] = useState([])
+  const [Utilities, setUtilities] = useState([])
 
-  const ListBarrios = [
-    { label: "barrio1", name: "barrio1" },
-    { label: "barrio2", name: "barrio2" },
-    { label: "barrio3", name: "barrio3" },
-    { label: "barrio4", name: "barrio4" },
-    { label: "barrio5", name: "barrio5" },
-  ];
-
-  const ListProximidades = [
-    { label: "Proximidad1", name: "Proximidad1" },
-    { label: "Proximidad2", name: "Proximidad2" },
-    { label: "Proximidad3", name: "Proximidad3" },
-    { label: "Proximidad4", name: "Proximidad4" },
-    { label: "Proximidad5", name: "Proximidad5" },
-  ];
-
-  const ListProximidades2 = [
-    { label: "Proximidad1", name: "Proximidad1" },
-    { label: "Proximidad2", name: "Proximidad2" },
-    { label: "Proximidad3", name: "Proximidad3" },
-    { label: "Proximidad4", name: "Proximidad4" },
-    { label: "Proximidad5", name: "Proximidad5" },
-  ];
-
-  const Listamenities = [
-    { label: "amenitie1", name: "amenitie1" },
-    { label: "amenitie2", name: "amenitie2" },
-    { label: "amenitie3", name: "amenitie3" },
-    { label: "amenitie4", name: "amenitie4" },
-    { label: "amenitie5", name: "amenitie5" },
-  ];
+  useEffect(() => {
+    const params = {sortColumn: "name", ascend: true}
+    api.fetchAmenities(params)
+    .then(({data}) => {
+      setAmenities(data.data)
+    })
+    .catch(err => console.log(err))
+    
+    api.fetchNeighbourhoods(params)
+    .then(({data}) => setNeighbourhoods(data.data))
+    .catch(err => console.log(err))
+    
+    api.fetchProximities(params)
+    .then(({data}) => setProximities(data.data))
+    .catch(err => console.log(err))
+    
+    api.fetchUtilities(params)
+    .then(({data}) => setUtilities(data.data))
+    .catch(err => console.log(err))
+    
+  }, [])
 
   return (
     <>
-      <FeaturesComponent title={"Servicios"} FeaturesList={ListCheck} />
-      <FeaturesComponent title={"Barrios"} FeaturesList={ListBarrios} />
+      <FeaturesComponent title={"Comodidades"} name={"amenities"} FeaturesList={amenities} />
+      <FeaturesComponent title={"Barrios"} name={"neighbourhoods"} FeaturesList={Neighbourhoods} />
       <FeaturesComponent
+        name={"proximities"}
         title={"Proximidades"}
-        FeaturesList={ListProximidades}
+        FeaturesList={Proximities}
       />
-      <FeaturesComponent title={"Amenities"} FeaturesList={Listamenities} />
-      <div className="col-span-2">
-        <TextAreaField name={"comentarios"} label={"Comentarios"} />
-      </div>
+      <FeaturesComponent title={"Utilidades"} name={"utilities"} FeaturesList={Utilities} />
+        <TextAreaField name={"internalComments"} label={"Comentarios"} />
     </>
   );
 };
 
-const FeaturesComponent = ({ title, FeaturesList = [] }) => {
+const FeaturesComponent = memo(({ title, name, FeaturesList = [] }) => {
   return (
-    <FieldArray name={title}>
+    <FieldArray name={name}>
       {({ insert, remove, push }) => (
-        <div className="p-3 w-full">
+        <div className="p-3 w-full h-60">
           <h2 className="text-base font-bold text-sm">{title}</h2>
-          <div className="grid w-full gap-8 py-4 sm:grid-cols-2 md:grid-cols-3  ">
-            {FeaturesList.map((item, idx) => (
-              <CheckBox
-                key={idx}
-                name={item.name}
-                label={item.label}
-                onChange={(e) =>
-                  e.target.checked ? push(item.name) : remove(item.name)
-                }
-              />
-            ))}
+          <div className="grid w-full gap-8 py-4 sm:grid-cols-2 md:grid-cols-3 max-h-40 overflow-auto pt-2 px-5  ">
+            {FeaturesList.length > 1 ? (
+              FeaturesList?.map((item, idx) => (
+                <CheckBox
+                  key={idx}
+                  name={item.name}
+                  label={item.name}
+                  onChange={(e) =>
+                    e.target.checked ? push({id: item.id, title: item.name}) : remove({id: item.id, title: item.name})
+                  }
+                />
+              ))
+            ) : (
+              <>
+              <SkeletonFeature/>
+              <SkeletonFeature/>
+              <SkeletonFeature/>
+              <SkeletonFeature/>
+              <SkeletonFeature/>
+              <SkeletonFeature/>
+              <SkeletonFeature/>
+              <SkeletonFeature/>
+              <SkeletonFeature/>
+              </>
+            )}
+          
           </div>
         </div>
       )}
     </FieldArray>
   );
-};
+});
+
+
+
+
+const SkeletonFeature = () => {
+  return (
+    <>
+    <div className="flex items-center gap-2 w-full skeleton">
+      <div className="w-6 h-6 rounded-full bg-gray-200 "/>
+      <div className="w-4/5 h-3  bg-gray-200 "/>
+    </div>
+    <style jsx>
+        {`
+          .skeleton {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+          }
+
+          @keyframes pulse {
+            0%,
+            100% {
+              opacity: 1;
+            }
+            50% {
+              opacity: 0.5;
+            }
+          }
+        `}
+      </style>
+      
+    </>
+  )
+}

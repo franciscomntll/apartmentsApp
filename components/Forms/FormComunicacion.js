@@ -5,7 +5,7 @@ export const FormComunicacion = () => {
     <>
       <InputField
         label={"Telefono"}
-        name={"telefono"}
+        name={"phonenumber"}
         type={"phone"}
         autoComplete={"off"}
         autoFocus
@@ -15,28 +15,24 @@ export const FormComunicacion = () => {
         name={"codigoContestador"}
         type={"text"}
         autoComplete={"off"}
-        autoFocus
       />
       <InputField
         label={"Clave contestador"}
         name={"claveContestador"}
         type={"text"}
         autoComplete={"off"}
-        autoFocus
       />
       <InputField
         label={"Encargado"}
-        name={"encargado"}
+        name={"manager"}
         type={"text"}
         autoComplete={"off"}
-        autoFocus
       />
       <InputField
         label={"Telefono encargado"}
-        name={"telefonoEncargado"}
+        name={"managerPhone"}
         type={"text"}
         autoComplete={"off"}
-        autoFocus
       />
       
     </>

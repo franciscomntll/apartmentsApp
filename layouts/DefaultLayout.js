@@ -7,7 +7,7 @@ const DefaultLayout = ({ children }) => {
       <PopupContextProvider>
         <div className="min-h-screen w-full relative">
           <Navigation />
-          <main className="bg-gradient-to-t from-gray-100 to-white ">
+          <main className="bg-gradient-to-t from-gray-200 to-gray-100 ">
             {children}
           </main>
         </div>

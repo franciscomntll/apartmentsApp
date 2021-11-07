@@ -5,7 +5,7 @@ export const FormPrecios = () => {
     <>
       <InputField
         label={"Estadia minima"}
-        name={"estadiaMinima"}
+        name={"stayAndPrice.minimumStay"}
         type={"number"}
         autoComplete={"off"}
         autoFocus
@@ -13,14 +13,14 @@ export const FormPrecios = () => {
 
       <InputField
         label={"Estadia maxima"}
-        name={"estadiaMaxima"}
+        name={"stayAndPrice.maximumStay"}
         type={"number"}
         autoComplete={"off"}
       />
 
       <InputField
         label={"Precio semana propietario"}
-        name={"semanaPropietario"}
+        name={"stayAndPrice.weekPriceProp"}
         type={"number"}
         autoComplete={"off"}
         step={".01"}
@@ -28,35 +28,35 @@ export const FormPrecios = () => {
 
       <InputField
         label={"Precio quincena propietario"}
-        name={"quincenaPropietario"}
+        name={"stayAndPrice.halfMonthPriceProp"}
         type={"number"}
         autoComplete={"off"}
         step={".01"}
       />
       <InputField
         label={"Precio mensual propietario"}
-        name={"mensualPropietario"}
+        name={"stayAndPrice.monthlyPriceProp"}
         type={"number"}
         autoComplete={"off"}
         step={".01"}
       />
       <InputField
         label={"Precio semana renta"}
-        name={"semanaRenta"}
+        name={"stayAndPrice.weekPriceRent"}
         type={"number"}
         autoComplete={"off"}
         step={".01"}
       />
       <InputField
         label={"Precio quincena renta"}
-        name={"quincenaRenta"}
+        name={"stayAndPrice.halfMonthPriceRent"}
         type={"number"}
         autoComplete={"off"}
         step={".01"}
       />
       <InputField
         label={"Precio mensual renta"}
-        name={"mensualRenta"}
+        name={"stayAndPrice.monthlyPriceRent"}
         type={"number"}
         autoComplete={"off"}
         step={".01"}

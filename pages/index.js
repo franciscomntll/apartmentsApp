@@ -7,178 +7,39 @@ import PreviewComponent from "../components/PreviewComponent";
 import SearchComponent from "../components/SearchComponent";
 import { PopupContext } from "../context/PopupContext";
 
-const fakeData = [
-  {agencia: 'HolaAgency',
-  propietario: "Agustina Petrocelli",
-  categoria: 'Categoria1',
-  fechaIncorporacion: 1635538504,
-  calle: "Simon Bolivar",
-  numero: "14",
-  piso: "20",
-  apartamento: "18",
-  torre: "Insignia",
-  entreCalle1: "49",
-  entreCalle2: "50",
-  ciudad: "Maracaibo",
-  codigoPostal: "4004",
-  telefono: "+584121085574",
-  codigoContestador: "23",
-  claveContestador: "50",
-  encargado: "Jose Gonzalez",
-  telefonoEncargado: "+458579985685",
-  superficie: "128",
-  capacidad: "15",
-  ambientes: "3",
-  camas: "3",
-  mascotas: true,
-  comentarios: "Lorem ipsum",
-  images : [
-    {url: '/banner.jpg'},
-    {url: '/banner.jpg'},
-  ]
-},
-{agencia: 'HolaAgency',
-  propietario: "Agustina Petrocelli",
-  categoria: 'Categoria1',
-  fechaIncorporacion: 1635538504,
-  calle: "Simon Bolivar",
-  numero: "14",
-  piso: "20",
-  apartamento: "18",
-  torre: "Insignia",
-  entreCalle1: "49",
-  entreCalle2: "50",
-  ciudad: "Maracaibo",
-  codigoPostal: "4004",
-  telefono: "+584121085574",
-  codigoContestador: "23",
-  claveContestador: "50",
-  encargado: "Jose Gonzalez",
-  telefonoEncargado: "+458579985685",
-  superficie: "128",
-  capacidad: "15",
-  ambientes: "3",
-  camas: "3",
-  mascotas: true,
-  comentarios: "Lorem ipsum",
-  images : [
-    {url: '/banner.jpg'},
-    {url: '/banner.jpg'},
-  ]
-},
-{agencia: 'HolaAgency',
-  propietario: "Agustina Petrocelli",
-  categoria: 'Categoria1',
-  fechaIncorporacion: 1635538504,
-  calle: "Simon Bolivar",
-  numero: "14",
-  piso: "20",
-  apartamento: "18",
-  torre: "Insignia",
-  entreCalle1: "49",
-  entreCalle2: "50",
-  ciudad: "Maracaibo",
-  codigoPostal: "4004",
-  telefono: "+584121085574",
-  codigoContestador: "23",
-  claveContestador: "50",
-  encargado: "Jose Gonzalez",
-  telefonoEncargado: "+458579985685",
-  superficie: "128",
-  capacidad: "15",
-  ambientes: "3",
-  camas: "3",
-  mascotas: true,
-  comentarios: "Lorem ipsum",
-  images : [
-    {url: '/banner.jpg'},
-    {url: '/banner.jpg'},
-  ]
-},
-{agencia: 'HolaAgency',
-  propietario: "Agustina Petrocelli",
-  categoria: 'Categoria1',
-  fechaIncorporacion: 1635538504,
-  calle: "Simon Bolivar",
-  numero: "14",
-  piso: "20",
-  apartamento: "18",
-  torre: "Insignia",
-  entreCalle1: "49",
-  entreCalle2: "50",
-  ciudad: "Maracaibo",
-  codigoPostal: "4004",
-  telefono: "+584121085574",
-  codigoContestador: "23",
-  claveContestador: "50",
-  encargado: "Jose Gonzalez",
-  telefonoEncargado: "+458579985685",
-  superficie: "128",
-  capacidad: "15",
-  ambientes: "3",
-  camas: "3",
-  mascotas: true,
-  comentarios: "Lorem ipsum",
-  images : [
-    {url: '/banner.jpg'},
-    {url: '/banner.jpg'},
-  ]
-},
-{agencia: 'HolaAgency',
-  propietario: "Agustina Petrocelli",
-  categoria: 'Categoria1',
-  fechaIncorporacion: 1635538504,
-  calle: "Simon Bolivar",
-  numero: "14",
-  piso: "20",
-  apartamento: "18",
-  torre: "Insignia",
-  entreCalle1: "49",
-  entreCalle2: "50",
-  ciudad: "Maracaibo",
-  codigoPostal: "4004",
-  telefono: "+584121085574",
-  codigoContestador: "23",
-  claveContestador: "50",
-  encargado: "Jose Gonzalez",
-  telefonoEncargado: "+458579985685",
-  superficie: "128",
-  capacidad: "15",
-  ambientes: "3",
-  camas: "3",
-  mascotas: true,
-  comentarios: "Lorem ipsum",
-  images : [
-    {url: '/banner.jpg'},
-    {url: '/banner.jpg'},
-  ]
-},
-]
-
 const Home = () => {
-
   const { isShow } = useContext(PopupContext);
   // Almacena array de departamentos
-  const [data, setData] = useState(fakeData);
+  const [data, setData] = useState([]);
   //Almacenar valor del buscador
   const [value, setValue] = useState("");
   //Almacenar pagina actual
   const [pageIndex, setPageIndex] = useState(1);
   //Almacenar numero total de paginas
-  const [TotalPages, setTotalPages] = useState(4);
+  const [TotalPages, setTotalPages] = useState();
+  //Almacenar numero total de paginas
+  const [loading, setLoading] = useState(true);
 
+  // Peticion HTTP a api
+  const fetchData = async () => {
+    setLoading(true)
+    const { data } = await api.fetchApartments({
+      currentPage: pageIndex,
+      pageSize: 12,
+      sortColumn: "id",
+      ascend: true,
+    });
+    setData(data.data);
+    setTotalPages(Math.round(data.total / 12));
+    setLoading(false)
+    
+  };
   useEffect(() => {
-    // Peticion HTTP a api
-    api
-      .fetchApartments(value)
-      .then((res) => setData(res))
-      .catch((err) => console.log(err));
-  }, [value]);
+    fetchData();
+  }, [pageIndex]);
 
-  const handleChangePage = (toPage) => {
+  const handleChangePage = async (toPage) => {
     setPageIndex(toPage);
-    //Llamar a la api para traer nueva data y luego setear al estado [data]
-    // api.fetchApartments()
   };
 
   return (
@@ -186,27 +47,33 @@ const Home = () => {
       <Popup state={isShow}>
         <PreviewComponent data={data} />
       </Popup>
-      <div className="max-w-screen-lg p-12 flex flex-col gap-3 w-full mx-auto inset-x-0">
-        <h1 className="text-xl w-full text-center font-bold text-gray-900 ">
-          Encuentra tu apartamento de ensueño...
-        </h1>
-        <SearchComponent
-          onChange={(e) => setValue(e.target.value)}
-          value={value}
-          placeholder={"Buscar"}
-        />
-        <Hits data={data} />
+      <div className="flex flex-col gap-3 w-full">
+        <div className="bg-indigo-600">
+          <div className="xl:max-w-screen-lg 2xl:max-w-screen-xl mx-auto inset-x-0 w-full py-12 grid grid-cols-2 place-items-center">
+            <h1 className="text-2xl w-full text-center font-semibold text-white ">
+              Busca un apartamento
+            </h1>
+            <SearchComponent
+              onChange={(e) => setValue(e.target.value)}
+              value={value}
+              placeholder={"Buscar"}
+            />
+          </div>
+        </div>
+        <div className="xl:max-w-screen-lg 2xl:max-w-screen-xl mx-auto inset-x-0 w-full">
+          <Hits data={data} loading={loading} />
 
-        <Pagination
-          pageIndex={pageIndex}
-          to={TotalPages}
-          gotoPage={(page) => handleChangePage(page)}
-          canPreviousPage={pageIndex > 1}
-          canNextPage={pageIndex < TotalPages}
-          previousPage={() => handleChangePage(pageIndex - 1)}
-          nextPage={() => handleChangePage(pageIndex + 1)}
-          selectShow={false}
-        />
+          <Pagination
+            pageIndex={pageIndex}
+            to={TotalPages}
+            gotoPage={(page) => handleChangePage(page)}
+            canPreviousPage={pageIndex > 1}
+            canNextPage={pageIndex < TotalPages}
+            previousPage={() => handleChangePage(pageIndex - 1)}
+            nextPage={() => handleChangePage(pageIndex + 1)}
+            selectShow={false}
+          />
+        </div>
       </div>
     </>
   );

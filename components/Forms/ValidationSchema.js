@@ -1,30 +1,54 @@
 import * as Yup from "yup";
 
 export const initialValues = {
-  agencia: "",
-  propietario: "",
-  categoria: "",
-  fechaIncorporacion: "",
-  calle: "",
-  numero: "",
-  piso: "",
-  apartamento: "",
-  torre: "",
-  entreCalle1: "",
-  entreCalle2: "",
-  ciudad: "",
-  codigoPostal: "",
-  telefono: "",
+  agency: {
+    id: "",
+    title: "",
+  },
+  owner: {
+    id: "",
+    title: "",
+  },
+  category: {
+    id: "",
+    title: "",
+  },
+  incorporationDate: "",
+  address: {
+    street: "",
+    number: "",
+    floor: "",
+    apartment: "",
+    tower: "",
+    between1: "",
+    between2: "",
+    city: "",
+    postalCode: "",
+  },
+  phonenumber: "",
   codigoContestador: "",
   claveContestador: "",
-  encargado: "",
-  telefonoEncargado: "",
-  superficie: "",
-  capacidad: "",
-  ambientes: "",
-  camas: "",
-  mascotas: false,
-  comentarios: ""
+  manager: "",
+  managerPhone: "",
+  technicalData: {
+    area: "",
+    capacity: "",
+    enviroments: "",
+    bedrooms: "",
+    beds: "",
+  },
+  petsAllowed: false,
+  stayAndPrice: {
+    minimumStay: "",
+    maximumStay: "",
+    weekPriceProp: "",
+    halfMonthPriceProp: "",
+    monthlyPriceProp : "",
+    weekPriceRent: "",
+    halfMonthPriceRent: "",
+    monthlyPriceRent:""
+  },
+  internalComments: "",
 };
 
 Yup.setLocale({
@@ -33,35 +57,37 @@ Yup.setLocale({
   },
 });
 
-
 export const validationSchema = Yup.object().shape({
   //Form General
-  agencia: Yup.string().required(),
-  propietario: Yup.string().required(),
-  categoria: Yup.string().required(),
-  fechaIncorporacion: Yup.date().required(),
+  agency: Yup.object().shape({
+    id: Yup.string(),
+    title: Yup.string().required(),
+  }),
+  owner: Yup.object().shape({
+    id: Yup.number(),
+    title: Yup.string().required(),
+  }),
+  category: Yup.object().shape({
+    id: Yup.number(),
+    title: Yup.string().required(),
+  }),
+  incorporationDate: Yup.date().required(),
 
   //Form Ubicacion
-  calle: Yup.string().required(),
-  numero: Yup.number().required(),
-  piso: Yup.number().required(),
-  apartamento: Yup.number().required(),
-  torre: Yup.string().required(),
-  entreCalle1: Yup.string().required(),
-  entreCalle2: Yup.string().required(),
-  ciudad: Yup.string().required(),
-  codigoPostal: Yup.number().required(),
-  estadiaMinima: Yup.number().required(),
-  estadiaMaxima: Yup.number().required(),
-  semanaPropietario: Yup.number().required(),
-  quincenaPropietario: Yup.number().required(),
-  mensualPropietario: Yup.number().required(),
-  semanaRenta: Yup.number().required(),
-  quincenaRenta: Yup.number().required(),
-  mensualRenta: Yup.number().required(),
+  address: Yup.object().shape({
+    street: Yup.string().required(),
+    number: Yup.number().required(),
+    floor: Yup.number().required(),
+    apartment: Yup.number().required(),
+    tower: Yup.string().required(),
+    between1: Yup.string().required(),
+    between2: Yup.string().required(),
+    city: Yup.string().required(),
+    postalCode: Yup.number().required(),
+  }),
 
   //Form Ubicacion
-  telefono: Yup.number()
+  phonenumber: Yup.number()
     .required()
     .test(
       "len",
@@ -70,8 +96,8 @@ export const validationSchema = Yup.object().shape({
     ),
   codigoContestador: Yup.string().required(),
   claveContestador: Yup.string().required(),
-  encargado: Yup.string().required(),
-  telefonoEncargado: Yup.number()
+  manager: Yup.string().required(),
+  managerPhone: Yup.number()
     .required()
     .test(
       "len",
@@ -80,22 +106,51 @@ export const validationSchema = Yup.object().shape({
     ),
 
   //Form InfoTecnica
-  superficie: Yup.number().required(),
-  capacidad: Yup.number().required(),
-  ambientes: Yup.number().required(),
-  camas: Yup.number().required(),
-  mascotas: Yup.boolean().required(),
+  technicalData: Yup.object().shape({
+    area: Yup.number().required(),
+    capacity: Yup.number().required(),
+    enviroments: Yup.number().required(),
+    bedrooms: Yup.number().required(),
+    beds: Yup.number().required(),
+  }),
+  petsAllowed: Yup.boolean().required(),
 
   // Form Precios
-  estadiaMinima: Yup.number().required(),
-  estadiaMaxima: Yup.number().required(),
-  semanaPropietario: Yup.number().required(),
-  quincenaPropietario: Yup.number().required(),
-  mensualPropietario: Yup.number().required(),
-  semanaRenta: Yup.number().required(),
-  quincenaRenta: Yup.number().required(),
-  mensualRenta: Yup.number().required(),
+  stayAndPrice: Yup.object().shape({
+    minimumStay: Yup.number().required(),
+    maximumStay: Yup.number().required(),
+    weekPriceProp: Yup.number().required(),
+    halfMonthPriceProp: Yup.number().required(),
+    monthlyPriceProp: Yup.number().required(),
+    weekPriceRent: Yup.number().required(),
+    halfMonthPriceRent: Yup.number().required(),
+    monthlyPriceRent: Yup.number().required(),
+  }),
 
   // Form Comentarios
-  comentarios: Yup.string().notRequired(),
+  amenities: Yup.array().of(
+    Yup.object().shape({
+      id: Yup.number(),
+      title: Yup.string().required(),
+    })
+  ).notRequired(),
+  neighbourhoods: Yup.array().of(
+    Yup.object().shape({
+      id: Yup.number(),
+      title: Yup.string().required(),
+    })
+  ).notRequired(),
+  proximities: Yup.array().of(
+    Yup.object().shape({
+      id: Yup.number(),
+      title: Yup.string().required(),
+    })
+  ).notRequired(),
+  utilities: Yup.array().of(
+    Yup.object().shape({
+      id: Yup.number(),
+      title: Yup.string().required(),
+    })
+  ).notRequired(),
+  internalComments: Yup.string().notRequired(),
 });
