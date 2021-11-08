@@ -35,11 +35,7 @@ const Navigation = () => {
             </ButtonIcon>
 
           </div>
-            <Link href="/panel">
-          <Button variant={"primary"}>
-            Publicar
-          </Button>
-          </Link>
+            
         </div>
       </header>
     </>

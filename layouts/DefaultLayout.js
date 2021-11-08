@@ -1,10 +1,14 @@
 import Navigation from "../components/Navigation";
 import { PopupContextProvider } from "../context/PopupContext";
+import { ToastContextProvider } from "../context/ToastContext";
+import ToastsComponent from '../components/ToastsComponent'
 
 const DefaultLayout = ({ children }) => {
   return (
     <>
+    <ToastContextProvider>
       <PopupContextProvider>
+        <ToastsComponent />
         <div className="min-h-screen w-full relative">
           <Navigation />
           <main className="bg-gradient-to-t from-gray-200 to-gray-100 ">
@@ -12,6 +16,7 @@ const DefaultLayout = ({ children }) => {
           </main>
         </div>
       </PopupContextProvider>
+      </ToastContextProvider>
       <style jsx global>
         {`
           main {

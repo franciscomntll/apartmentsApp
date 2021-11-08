@@ -40,8 +40,13 @@ const api = {
             params: {id: id}
         })
     },
+    deleteApartments : async (params) => {
+        return await instance.delete('/apartments', {
+            params: params
+        })
+    },
     saveApartments : async (data) => {
-        return await axios.post('apartments', data)
+        return await instance.post('/apartments', data)
     },
     
 } 

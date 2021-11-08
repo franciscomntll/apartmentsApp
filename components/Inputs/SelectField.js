@@ -82,7 +82,7 @@ const Dropdown = memo(({ options = [], set, state, setState, loading }) => {
       <div className="w-full absolute bottom-0 translate-y-full transform left-0 grid bg-white rounded-md z-30 shadow border text-sm  ">
         <input
         autoFocus
-          className="h-8 bg-gray-200 focus:outline-none pl-2 border-b-2 border-gray-300"
+          className="h-8 bg-indigo-500 focus:outline-none pl-2 border-b-2 border-indigo-300 placeholder-white text-white rounded-md"
           placeholder={"Buscador"}
           value={value}
           onChange={handleChange}

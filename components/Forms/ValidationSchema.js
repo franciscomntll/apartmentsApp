@@ -76,14 +76,14 @@ export const validationSchema = Yup.object().shape({
   //Form Ubicacion
   address: Yup.object().shape({
     street: Yup.string().required(),
-    number: Yup.number().required(),
-    floor: Yup.number().required(),
-    apartment: Yup.number().required(),
-    tower: Yup.string().required(),
-    between1: Yup.string().required(),
-    between2: Yup.string().required(),
-    city: Yup.string().required(),
-    postalCode: Yup.number().required(),
+    number: Yup.number(),
+    floor: Yup.number(),
+    apartment: Yup.number(),
+    tower: Yup.string(),
+    between1: Yup.string(),
+    between2: Yup.string(),
+    city: Yup.string(),
+    postalCode: Yup.number(),
   }),
 
   //Form Ubicacion

@@ -11,7 +11,7 @@ import {
   FormComentarios,
   FormImagenes,
 } from "../components/Forms";
-import { ArrowIcon } from "../components/icons";
+import { ArrowIcon, CrossIcon, SaveIcon, TrashIcon } from "../components/icons";
 import {
   initialValues,
   validationSchema,
@@ -23,11 +23,9 @@ const PanelComponent = (props) => {
   const [phase, setPhase] = useState(0);
   const [imagePrincipal, setImagePrincipal] = useState({});
   useEffect(() => {
-    setType(props)
-  }, [props])
+    setType(props);
+  }, [props]);
 
-  
-  
   const phases = [
     { title: "General", component: <FormGeneral /> },
     { title: "Dirección", component: <FormUbicacion /> },
@@ -43,11 +41,15 @@ const PanelComponent = (props) => {
     },
   ];
 
+  const handleSubmit = async (values, actions) => {
+    const res = await api.saveApartments(values)
+    console.log(res)
+  }
   return (
     <Formik
-      initialValues={type || initialValues}
+      initialValues={type.type === "edit" ? type : initialValues}
       validationSchema={validationSchema}
-      onSubmit={(values) => console.log(values)}
+      onSubmit={handleSubmit}
     >
       <section>
         <Form>
@@ -57,9 +59,9 @@ const PanelComponent = (props) => {
             {phases.map((item, idx) => (
               <div
                 key={idx}
-                className={`p-6 grid ${item.title === "Comentarios" ? "" : "md:grid-cols-2"} gap-6 ${
-                  phase === idx ? "block" : "hidden"
-                }`}
+                className={`p-6 grid ${
+                  item.title === "Comentarios" ? "" : "md:grid-cols-2"
+                } gap-6 ${phase === idx ? "block" : "hidden"}`}
               >
                 {item.component}
               </div>
@@ -111,24 +113,26 @@ const Header = ({ image, type }) => {
             />
             <span className="text-white flex flex-col">
               <h1 className=" text-xl">
-                {values?.category?.title ?? "Nombre del apartamento"}
+                {values?.category?.title ?? "Tipo de inmueble"}
               </h1>
               <p className="hidden md:block text-xs text-light">
-                {values?.agency?.title}
+                {values?.agency?.title ?? "Agencia"}
               </p>
             </span>
           </div>
           <div className="flex items-center gap-4">
             {type !== "edit" ? (
-              <Button type={"submit"} variant="primary">
+              <Button type={"submit"} variant="secondary">
                 Añadir nuevo departamento
               </Button>
             ) : (
               <>
-                <Button type={"button"} variant="secondary">
+                <Button type={"button"} variant="secondary" onClick={() => api.deleteApartments([type.id])}>
+                  <TrashIcon className="w-5 h-5" />
                   Remover
                 </Button>
-                <Button type={"submit"} variant="primary">
+                <Button type={"submit"} variant="secondary">
+                <SaveIcon className="w-5 h-5" />
                   Guardar
                 </Button>
               </>
@@ -141,22 +145,35 @@ const Header = ({ image, type }) => {
 };
 
 export async function getServerSideProps(context) {
- 
-  if(context.query.id){
+  if (context.query.id) {
     try {
-      const {data} = await api.fetchApartmentByID(context.query.id)
+      const { data } = await api.fetchApartmentByID(context.query.id);
       return {
-        props: {...data, ...context.query} 
+        props: {
+          ...context.query,
+          ...data,
+          agency: {
+            id: data.agency.id,
+            title: data.agency.description,
+          },
+          owner: {
+            id: data.owner.id,
+            title: `${data.owner.name} ${data.owner.lastname}`,
+          },
+          category: {
+            id: data.category.id,
+            title: data.category.name,
+          },
+        },
       };
     } catch (error) {
-      console.log(error)   
+      console.log(error);
       return {
-        props : {}
-      };    
+        props: {},
+      };
     }
-    
   }
   return {
-    props : {}
-  }; 
+    props: {},
+  };
 }
